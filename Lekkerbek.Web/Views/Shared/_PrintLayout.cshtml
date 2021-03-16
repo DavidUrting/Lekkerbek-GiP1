@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Lekkerbek</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="row">
+                <img class="col-3 align-self-start" src="~/img/Lekkerbek.jpeg" />
+                <div class="col-6">
+                    <button class="btn btn-primary mt-2 d-print-none dlb-print-button" onclick="javascript: window.print();">Afdrukken</button>
+                    <button class="btn btn-secondary mt-2 d-print-none dlb-print-button" onclick="javascript:window.history.back()">Terug</button>
+                </div>
+                <address class="col-3 align-self-end">
+                    De Lekkerbek
+                    <br />
+                    Teststraat 123
+                    <br />
+                    1234 Testelt
+                </address>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+    <footer class="footer text-muted">
+        <div class="container">
+            De Lekkerbek - Tel: 012/345678 - Mail: info@@lekkerbek.be - IBAN: BE01234567890123
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

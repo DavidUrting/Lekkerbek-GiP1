@@ -1,0 +1,41 @@
+﻿@model Lekkerbek.Web.Models.Entities.BesteldGerecht
+
+@{
+    ViewData["Title"] = "Besteld gerecht details";
+}
+
+<h1>Besteld gerecht details</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Bestelling)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Bestelling.Id)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Gerecht)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Gerecht.Id)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Aantal)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Aantal)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Opmerkingen)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Opmerkingen)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-controller="Bestelling" asp-action="Details" asp-route-id="@Model.BestellingId">Terug naar bestelling</a>
+</div>

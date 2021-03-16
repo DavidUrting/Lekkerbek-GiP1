@@ -1,0 +1,44 @@
+﻿@model Lekkerbek.Web.Models.Entities.BesteldGerecht
+
+@{
+    ViewData["Title"] = "Besteld gerecht aanmaken";
+}
+
+<h1>Besteld gerecht aanmaken</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="BestellingId" class="control-label"></label>
+                <select asp-for="BestellingId" class ="form-control" asp-items="ViewBag.BestellingId" required readonly></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="GerechtId" class="control-label"></label>
+                <select asp-for="GerechtId" class ="form-control" asp-items="ViewBag.GerechtId" required></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Aantal" class="control-label"></label>
+                <input asp-for="Aantal" class="form-control" min="1" required />
+                <span asp-validation-for="Aantal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Opmerkingen" class="control-label"></label>
+                <input asp-for="Opmerkingen" class="form-control" />
+                <span asp-validation-for="Opmerkingen" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Aanmaken" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-controller="Bestelling" asp-action="Details" asp-route-id="@Model.BestellingId">Terug naar bestelling</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

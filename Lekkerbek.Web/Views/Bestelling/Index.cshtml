@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Lekkerbek.Web.Models.Entities.Bestelling>
+
+@{
+    ViewData["Title"] = "Bestellingen";
+}
+
+<h1>Bestellingen</h1>
+
+<p>
+    <a asp-action="Create">Bestelling aanmaken</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Betaald)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Klant)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tijdslot)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Opmerkingen)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Betaald)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Klant.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tijdslot)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Opmerkingen)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Aanpassen</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

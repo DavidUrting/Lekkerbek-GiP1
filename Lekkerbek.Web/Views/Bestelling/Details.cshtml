@@ -1,0 +1,80 @@
+﻿@model Lekkerbek.Web.Models.Entities.Bestelling
+
+@{
+    ViewData["Title"] = "Bestelling {Model.Id}";
+}
+
+<h1>Bestelling @Model.Id</h1>
+
+<div>
+    <hr />
+    <div class="row">
+        <div class="col-6">
+            <dl class="row">
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Klant)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Klant.Email)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Opmerkingen)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Opmerkingen)
+                </dd>
+                <dt class="col-sm-4">
+                    Prijs
+                </dt>
+                <dd class="col-sm-8">
+                    @(ViewBag.Prijs.ToString(System.Globalization.CultureInfo.InvariantCulture))
+                </dd>
+            </dl>
+        </div>
+        <div class="col-6">
+            <dl class="row">
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Status)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Status)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Betaald)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Betaald)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Tijdslot)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Tijdslot)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Gerecht</th>
+                <th>Aantal</th>
+                <th>Prijs</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var besteldGerecht in Model.BesteldeGerechten)
+            {
+                <tr>
+                    <td>@($"{besteldGerecht.Gerecht.Categorie} - {besteldGerecht.Gerecht.Naam}")</td>
+                    <td>@besteldGerecht.Aantal</td>
+                    <td>@((besteldGerecht.Gerecht.Prijs * besteldGerecht.Aantal).ToString(System.Globalization.CultureInfo.InvariantCulture))</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Aanpassen</a> |
+    <a asp-action="Index">Terug naar overzicht</a>
+</div>

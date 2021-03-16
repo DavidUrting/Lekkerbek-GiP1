@@ -1,0 +1,46 @@
+﻿@model Lekkerbek.Web.Models.Entities.Bestelling
+
+@{
+    ViewData["Title"] = "Nieuwe bestelling";
+}
+
+<h1>Nieuwe bestelling</h1>
+<hr />
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group">
+                <label asp-for="KlantId" class="control-label"></label>
+                <select asp-for="KlantId" class="form-control" asp-items="ViewBag.KlantId"></select>
+                <a asp-controller="Klant" asp-action="Create">Nieuwe klant?</a>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <input asp-for="Status" class="form-control" readonly />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group">
+                <label asp-for="Opmerkingen" class="control-label"></label>
+                <textarea asp-for="Opmerkingen" class="form-control"></textarea>
+                <span asp-validation-for="Opmerkingen" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Aanmaken en gerechten toevoegen" class="btn btn-primary" />
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Terug naar overzicht</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

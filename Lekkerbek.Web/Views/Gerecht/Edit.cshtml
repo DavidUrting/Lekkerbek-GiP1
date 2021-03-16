@@ -1,0 +1,47 @@
+﻿@model Lekkerbek.Web.Models.Entities.Gerecht
+
+@{
+    ViewData["Title"] = "Gerecht aanpassen";
+}
+
+<h1>Gerecht aanpassen</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Categorie" class="control-label"></label>
+                <input asp-for="Categorie" class="form-control" />
+                <span asp-validation-for="Categorie" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Naam" class="control-label"></label>
+                <input asp-for="Naam" class="form-control" />
+                <span asp-validation-for="Naam" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Omschrijving" class="control-label"></label>
+                <input asp-for="Omschrijving" class="form-control" />
+                <span asp-validation-for="Omschrijving" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Prijs" class="control-label"></label>
+                <input asp-for="Prijs" class="form-control" />
+                <span asp-validation-for="Prijs" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Terug naar overzicht</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

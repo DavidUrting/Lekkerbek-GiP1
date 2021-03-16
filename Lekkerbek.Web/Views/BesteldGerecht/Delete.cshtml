@@ -1,0 +1,45 @@
+﻿@model Lekkerbek.Web.Models.Entities.BesteldGerecht
+
+@{
+    ViewData["Title"] = "Besteld gerecht verwijderen";
+}
+
+<h1>Besteld gerecht verwijderen</h1>
+
+<h3>Ben je zeker?</h3>
+<div>
+    <h4>BesteldGerecht</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Bestelling)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Bestelling.Id)
+        </dd class>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Gerecht)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Gerecht.Id)
+        </dd class>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Aantal)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Aantal)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Opmerkingen)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Opmerkingen)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Verwijderen" class="btn btn-danger" /> |
+        <a asp-controller="Bestelling" asp-action="Details" asp-route-id="@Model.BestellingId">Terug naar bestelling</a>
+    </form>
+</div>

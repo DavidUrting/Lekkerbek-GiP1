@@ -1,0 +1,62 @@
+﻿@model Lekkerbek.Web.Models.Entities.Klant
+
+@{
+    ViewData["Title"] = "Klant aanpassen";
+}
+
+<h1>Klant aanpassen</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Naam" class="control-label"></label>
+                <input asp-for="Naam" class="form-control" />
+                <span asp-validation-for="Naam" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StraatEnNummer" class="control-label"></label>
+                <input asp-for="StraatEnNummer" class="form-control" />
+                <span asp-validation-for="StraatEnNummer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Postcode" class="control-label"></label>
+                <input asp-for="Postcode" class="form-control" />
+                <span asp-validation-for="Postcode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Woonplaats" class="control-label"></label>
+                <input asp-for="Woonplaats" class="form-control" />
+                <span asp-validation-for="Woonplaats" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Telefoonnummer" class="control-label"></label>
+                <input asp-for="Telefoonnummer" class="form-control" />
+                <span asp-validation-for="Telefoonnummer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Opmerkingen" class="control-label"></label>
+                <input asp-for="Opmerkingen" class="form-control" />
+                <span asp-validation-for="Opmerkingen" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Bewaren" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Terug naar overzicht</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

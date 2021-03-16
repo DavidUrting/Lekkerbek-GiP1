@@ -1,0 +1,47 @@
+﻿@model Lekkerbek.Web.Models.Entities.Gerecht
+
+@{
+    ViewData["Title"] = "Gerecht verwijderen";
+}
+
+<h1>Gerecht verwijderen</h1>
+@if (ViewBag.AantalBestellingen > 0)
+{
+    <div class="alert alert-warning" role="alert">
+        Dit gerecht is gekoppeld aan @ViewBag.AantalBestellingen bestellingen en kan dus niet verwijderd worden.
+    </div>
+}
+else
+{
+    <h3>Ben je zeker?</h3>
+}
+<div>
+    <h4>Gerecht</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Naam)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Naam)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Omschrijving)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Omschrijving)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Prijs)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Prijs)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Verwijderen" class="btn btn-danger" disabled="@(ViewBag.AantalBestellingen > 0)" /> |
+        <a asp-action="Index">Terug naar overzicht</a>
+    </form>
+</div>

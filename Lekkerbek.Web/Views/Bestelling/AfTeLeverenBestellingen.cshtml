@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Lekkerbek.Web.Models.Entities.Bestelling>
+
+@{
+    ViewData["Title"] = "Bestellingen afleveren";
+}
+
+<h1>Bestellingen afleveren</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Betaald)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Klant)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tijdslot)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Opmerkingen)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Betaald)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Klant.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tijdslot)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Opmerkingen)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-controller="Klant" asp-route-id="@item.KlantId">Klant</a> |
+                <a asp-action="Factuur" asp-route-id="@item.Id">Factuur</a> |
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Afleveren</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

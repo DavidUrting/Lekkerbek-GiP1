@@ -1,0 +1,60 @@
+﻿@model Lekkerbek.Web.Models.Entities.Klant
+
+@{
+    ViewData["Title"] = "Klant details";
+}
+
+<h1>Klant details</h1>
+
+<div>
+    <h4>Klant</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Naam)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Naam)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.StraatEnNummer)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.StraatEnNummer)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Postcode)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Postcode)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Woonplaats)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Woonplaats)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Telefoonnummer)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Telefoonnummer)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Opmerkingen)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Opmerkingen)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Aanpassen</a> |
+    <a asp-action="Index">Terug naar overzicht</a>
+</div>

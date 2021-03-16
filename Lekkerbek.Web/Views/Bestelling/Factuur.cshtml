@@ -1,0 +1,67 @@
+﻿@model Lekkerbek.Web.Models.Entities.Bestelling
+
+@{
+    Layout = "_PrintLayout";
+}
+
+<section id="factuurklant">
+    <address>
+        @Model.Klant.Naam
+        <br />
+        @Model.Klant.StraatEnNummer
+        <br />
+        @Model.Klant.Postcode @Model.Klant.Woonplaats
+        <br />
+        @Model.Klant.Email
+    </address>
+</section>
+
+<section id="factuurinfo">
+    <dl>
+        <dt>
+            Factuurdatum:
+        </dt>
+        <dd>
+            @DateTime.Now.ToShortDateString()
+        </dd>
+        <dt>
+            Factuurnummer:
+        </dt>
+        <dd>
+            @Model.Id
+        </dd>
+    </dl>
+</section>
+<section id="factuurdetail">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Gerecht</th>
+                <th>Prijs</th>
+                <th>Aantal</th>
+                <th>Subtotaal</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var besteldGerecht in Model.BesteldeGerechten)
+            {
+            <tr>
+                <td>@besteldGerecht.Gerecht.Naam</td>
+                <td>€ @besteldGerecht.Gerecht.Prijs</td>
+                <td>@besteldGerecht.Aantal.ToString()</td>
+                <td>@(besteldGerecht.Aantal * besteldGerecht.Gerecht.Prijs)</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</section>
+<section id="factuurtotaal">
+    <dl>
+        <dt>
+            Totaal:
+        </dt>
+        <dd>
+            € @ViewBag.Prijs
+        </dd>
+    </dl>
+</section>

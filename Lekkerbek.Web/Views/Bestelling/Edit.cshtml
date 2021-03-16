@@ -1,0 +1,141 @@
+﻿@using Lekkerbek.Web.Models.Entities; 
+
+@model Lekkerbek.Web.Models.Entities.Bestelling
+
+@{
+    ViewData["Title"] = $"Bestelling {Model.Id} beheren";
+}
+
+<h1>Bestelling @Model.Id beheren</h1>
+<hr />
+<form asp-action="Edit">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Id" />
+    <div class="row">
+        <div class="col-10">
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="KlantId" class="control-label"></label>
+                        @* https://stackoverflow.com/questions/368813/html-form-readonly-select-tag-input *@
+                        @if (ViewBag.GeldigeWijzigingen.Contains(nameof(Bestelling.Klant)) || ViewBag.GeldigeWijzigingen.Contains(nameof(Bestelling.KlantId)))
+                        {
+                            <select asp-for="KlantId" class="form-control" asp-items="ViewBag.KlantId"></select>
+                        }
+                        else
+                        {
+                            <input asp-for="KlantId" class="form-control" type="hidden" />
+                            <input asp-for="Klant.Email" class="form-control" disabled />
+                        }
+                        <span asp-validation-for="KlantId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="Status" class="control-label"></label>
+                        <input asp-for="Status" class="form-control" readonly />
+                        <span asp-validation-for="Status" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="Opmerkingen" class="control-label"></label>
+                        <textarea asp-for="Opmerkingen" class="form-control" readonly="@(!ViewBag.GeldigeWijzigingen.Contains(nameof(Bestelling.Opmerkingen)))"></textarea>
+                        <span asp-validation-for="Opmerkingen" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="Tijdslot" class="control-label"></label>
+                        <input asp-for="Tijdslot" class="form-control" readonly="@(!ViewBag.GeldigeWijzigingen.Contains(nameof(Bestelling.Tijdslot)))" />
+                        <span asp-validation-for="Tijdslot" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="prijs" class="control-label">Prijs @(Model.TotalePrijsZonderKorting != ViewBag.Prijs ? "(na korting)" : "")</label>
+                        <input name="prijs" type="number" class="form-control" value="@(Math.Round(ViewBag.Prijs, 2).ToString(System.Globalization.CultureInfo.InvariantCulture))" step=".01" disabled />
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group form-check">
+                        @* https://stackoverflow.com/questions/368813/html-form-readonly-select-tag-input *@
+                        <input asp-for="Betaald" class="form-check-input" disabled="@(!ViewBag.GeldigeWijzigingen.Contains(nameof(Bestelling.Betaald)))" />
+                        @if (!ViewBag.GeldigeWijzigingen.Contains(nameof(Bestelling.Betaald)))
+                        {
+                            <input asp-for="Betaald" class="form-check-input" type="hidden" />
+                        }
+                        <label asp-for="Betaald" class="form-check-label"></label>
+                        (<a asp-action="Factuur" asp-route-id="@Model.Id">Factuur</a>)
+                        <br />
+                        <span asp-validation-for="Betaald" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="form-group">
+                <input type="submit" name="actie" value="Bewaren" class="btn btn-block btn-secondary" />
+                <input type="submit" name="actie" value="Bestellen" class="btn mt-4 btn-block @(ViewBag.GeldigeStatusovergangen.Contains(Bestelling.EnumStatus.Besteld) ? "btn-primary" : "")" disabled="@(!ViewBag.GeldigeStatusovergangen.Contains(Bestelling.EnumStatus.Besteld))" />
+                <input type="submit" name="actie" value="Afleveren" class="btn mt-2 btn-block @(ViewBag.GeldigeStatusovergangen.Contains(Bestelling.EnumStatus.Afgeleverd) ? "btn-primary" : "")" disabled="@(!ViewBag.GeldigeStatusovergangen.Contains(Bestelling.EnumStatus.Afgeleverd))" />
+                <input type="submit" name="actie" value="Annuleren" class="btn mt-5 btn-block @(ViewBag.GeldigeStatusovergangen.Contains(Bestelling.EnumStatus.Geannuleerd) ? "btn-danger" : "")" disabled="@(!ViewBag.GeldigeStatusovergangen.Contains(Bestelling.EnumStatus.Geannuleerd))" />
+            </div>
+        </div>
+    </div>
+</form>
+<div class="row mt-3">
+    @if (ViewBag.GeldigeWijzigingen.Contains(nameof(Bestelling.BesteldeGerechten)))
+    { 
+        <a class="m-2 btn @(Model.Status == Bestelling.EnumStatus.Nieuw || Model.BesteldeGerechten == null || Model.BesteldeGerechten.Count == 0 ? "btn-primary" : "btn-outline-primary")" asp-action="Create" asp-controller="BesteldGerecht" asp-route-bestellingId="@Model.Id">Voeg gerecht toe</a>
+    }
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Gerecht</th>
+                <th>Aantal</th>
+                <th>Prijs</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var besteldGerecht in Model.BesteldeGerechten)
+            {
+                <tr>
+                    <td>@($"{besteldGerecht.Gerecht.Categorie} - {besteldGerecht.Gerecht.Naam}")</td>
+                    <td>@besteldGerecht.Aantal</td>
+                    <td>€ @((besteldGerecht.Gerecht.Prijs * besteldGerecht.Aantal).ToString())</td>
+                    <td>
+                        @if (ViewBag.GeldigeWijzigingen.Contains(nameof(Bestelling.BesteldeGerechten)))
+                        {
+                            <text>
+                            <a asp-action="Edit" asp-controller="BesteldGerecht" asp-route-id="@besteldGerecht.Id">Aanpassen</a> |
+                            </text>
+                        }
+                        <a asp-action="Details" asp-controller="BesteldGerecht" asp-route-id="@besteldGerecht.Id">Details</a> |
+                        @if (ViewBag.GeldigeWijzigingen.Contains(nameof(Bestelling.BesteldeGerechten)))
+                        {
+                            <a asp-action="Delete" asp-controller="BesteldGerecht" asp-route-id="@besteldGerecht.Id">Verwijderen</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <a asp-action="Index">Terug naar overzicht</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(function () {
+            $("form").data("validator").settings.ignore = ".data-val-ignore, :hidden, :disabled";
+        });
+    </script>
+}
